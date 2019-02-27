@@ -1,0 +1,40 @@
+# R
+.Rproj.user
+*.RData
+.Rhistory
+
+# sublime
+*.sublime-workspace
+
+# python
+__pycache__
+
+# spark
+spark-warehouse
+
+# nodejs (because this is not a node project)
+node_modules
+# package-lock.json
+test.js
+
+# bower
+bower_components
+
+# misc.
+*.log
+data
+results
+Module-1
+mitegro20D201808020427
+mitegro20D201808020427.zip
+Modul1_Datenübernahme.pptx
+models
+livepredresult
+*creds*.json
+Bewegungsdaten.json
+*.csv
+proplanet_zugang
+
+# mongodb
+dump/*
+*.bson

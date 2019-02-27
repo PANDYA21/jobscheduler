@@ -1,0 +1,9 @@
+{
+  "MONGO_NDOCS_LIM": 10000,
+  "RECOMMENDATIONS_LENGTH": 10,
+  "B_MIN_SOLD_TIMES": 20,
+  "B_MIN_SOLD_FRACTION": 0.1,
+  "B_SHOULD_FRACTION_BE_USED": true,
+  "CROSS_SELLING_SORT_BY_DEFAULT": "improvedLift",
+  "MONGO_URI": "mongodb://apiomat:Qh0Zw47u5t2x1@158.177.122.67:28017/?authSource=admin"
+}
