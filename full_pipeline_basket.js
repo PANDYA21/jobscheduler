@@ -9,7 +9,7 @@ const MongoClient = require('mongodb').MongoClient;
 const schedule = require('node-schedule');
 
 
-let j = schedule.scheduleJob('* */6 * * *', full_pipeline_basket);
+// let j = schedule.scheduleJob('* */6 * * *', full_pipeline_basket);
 
 async function full_pipeline_basket() {
   const coll = await collection({
@@ -111,3 +111,9 @@ async function full_pipeline_basket() {
     coll.s.db.s.topology.close();
   });
 }
+
+function test () {
+	console.log("test fpb");
+}
+
+module.exports = { full_pipeline_basket, test };

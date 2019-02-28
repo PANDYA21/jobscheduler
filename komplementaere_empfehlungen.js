@@ -9,9 +9,9 @@ const MongoClient = require('mongodb').MongoClient;
 const schedule = require('node-schedule');
 
 // 6 Uhr morgens
-let j = schedule.scheduleJob('* */6 * * *', full_pipeline_basket);
+// let j = schedule.scheduleJob('* */6 * * *', komplementaere_empfehlungen);
 
-async function full_pipeline_basket() {
+async function komplementaere_empfehlungen() {
   const coll = await collection({
     url: 'mongodb://apiomat:Qh0Zw47u5t2x1@158.177.122.67:28017/?authSource=admin',
     dbname: "Stammdaten-test",
@@ -65,3 +65,5 @@ async function full_pipeline_basket() {
     coll.s.db.s.topology.close();
   });
 }
+
+module.exports = { komplementaere_empfehlungen };
