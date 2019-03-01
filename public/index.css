@@ -1,0 +1,22 @@
+.header {
+	text-align:center;
+	color: #ba3885;
+	margin-bottom:2%;
+}
+.schedules {
+	text-align:center;
+}
+h2 {
+	color:black;
+	margin-bottom:20px;
+}
+
+.action {
+	font-size:20px;
+}
+
+.statusHeader {
+	font-size: 25px;
+	font-weight: 400; 
+	color: #ba3885!important;
+}

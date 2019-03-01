@@ -8,14 +8,15 @@ let job1;
 let job2;
 let job3;
 
+app.use('/', express.static('public'));
 
 app.get('/trigger/2a/?*?', (req, res, next) => {
 	if (!req.params["0"] || req.params["0"]== '') {
 		return res.redirect("/trigger/2c/status")
 	}
-	if (!req.params["0"] == 'status' || 'end' || 'start') {
-		return res.status(200).json({message: 'ungültiger Aufruf'});
-	}
+/*	if (req.params["0"] != 'status' &&  req.params["0"] != 'end' && req.params["0"] != 'start' ) {
+		return res.status(200).json({message: 'Ungültiger Aufruf'});
+	} */
 	if (req.params['0'] == 'start') {
 		job1 = schedule.scheduleJob('*/1 * * * *', test);
 		return res.status(200).json({message: '2a-schedule started'});
@@ -44,8 +45,8 @@ app.get('/trigger/2b/?*?', (req, res, next) => {
 	if (!req.params["0"] || req.params["0"]== '') {
 		return res.redirect("/trigger/2c/status")
 	}
-	if (!req.params["0"] == 'status' || 'end' || 'start') {
-		return res.status(200).json({message: 'ungültiger Aufruf'});
+	if (req.params["0"] != 'status' &&  req.params["0"] != 'end' && req.params["0"] != 'start' ) {
+		return res.status(200).json({message: 'Ungültiger Aufruf'});
 	}
 	if (req.params['0'] == 'start') {
 		job2 = schedule.scheduleJob('*/1 * * * *', test);
@@ -75,9 +76,9 @@ app.get('/trigger/2c/?*?', (req, res, next) => {
 	if (!req.params["0"] || req.params["0"]== '') {
 		return res.redirect("/trigger/2c/status")
 	} 
-/*	if (!req.params["0"] == 'status' && !req.params["0"] == 'end' && !req.params["0"] == 'start') {
-		return res.status(200).json({message: 'ungültiger Aufruf'});
-	} */
+	if (req.params["0"] != 'status' &&  req.params["0"] != 'end' && req.params["0"] != 'start' ) {
+		return res.status(200).json({message: 'Ungültiger Aufruf'});
+	} 
 	if (req.params['0'] == 'start') {
 		job3 = schedule.scheduleJob('*/1 * * * *', test);
 		return res.status(200).json({message: '2c-schedule started'});
