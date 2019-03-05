@@ -9,7 +9,7 @@
 	this.http = new Http();
     const res = await (async function fetchData() {
       const options = {
-		endpoint: 'http://localhost:8080/trigger/' + model + '/' + query,
+		endpoint: '/trigger/' + model + '/' + query,
         additional_headers: [{
           'content-type': 'application/json'
         }]
