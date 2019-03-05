@@ -112,5 +112,5 @@ module.exports = [{
     }
   }
 }, {
-  $out: "pipelineTest1"
+  $out: "pipeline3Test"
 }];

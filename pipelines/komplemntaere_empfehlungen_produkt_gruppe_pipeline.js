@@ -1,5 +1,4 @@
-db.Produkt.aggregate(
-  [{
+module.exports =  [{
     $project: {
       mitegronummer7LastTwoChars: {
         $substrCP: ["$mitegronummer7", 7, 2]
@@ -44,8 +43,5 @@ db.Produkt.aggregate(
       }
     }
   }, {
-    $out: "komplemntaereEmpfehlungenProduktGruppe"
-  }], {
-    allowDiskUse: true
-  }
-)
+    $out: "Pipeline2Test"
+  }];

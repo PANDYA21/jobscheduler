@@ -1,4 +1,4 @@
-db.Bewegungsdaten.aggregate([{
+module.exports = [{
     $match: {
       "plz": {
         "$exists": true
@@ -118,8 +118,5 @@ db.Bewegungsdaten.aggregate([{
     }
   },
   {
-    $out: "NaNbCountsCrossSelling2"
-  }
-], {
-  allowDiskUse: true
-})
+    $out: "Pipeline1Test"
+  }];

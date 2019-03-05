@@ -8,8 +8,7 @@ const {
 const MongoClient = require('mongodb').MongoClient;
 const schedule = require('node-schedule');
 
-// 6 Uhr morgens
-// let j = schedule.scheduleJob('* */6 * * *', komplementaere_empfehlungen);
+const testPipeline2 = require('./pipelines/komplemntaere_empfehlungen_produkt_gruppe_pipeline.js');
 
 async function komplementaere_empfehlungen() {
   const coll = await collection({
@@ -18,45 +17,7 @@ async function komplementaere_empfehlungen() {
     collectionname: "Bewegungsdaten",
     keepAlive: true
   });
-  coll.aggregate([{
-          $project: {
-      mitegronummer7LastTwoChars: { $substrCP: ["$mitegronummer7", 7, 2] },
-      mitegronummer7: "$mitegronummer7",
-      "herstellername": "$herstellername",
-      "marke": "$marke",
-      "produktserie": "$produktserie",
-      "zolltarifnummer": "$zolltarifnummer"
-    }
-  }, {
-    $project: {
-      mitegronummer7Original: "$mitegronummer7",
-      "herstellername": "$herstellername",
-      "marke": "$marke",
-      "produktserie": "$produktserie",
-      "zolltarifnummer": "$zolltarifnummer",
-      mitegronummer7: {
-        $cond: {
-          if: { "$eq": [{ "$strLenCP": "$mitegronummer7LastTwoChars" }, 2] },
-          then: { "$substr": ["$mitegronummer7", 0, 7] },
-          else: "$mitegronummer7"
-        }
-      }
-    }
-  }, {
-    $group: {
-      _id: {
-        "herstellername": "$herstellername",
-        "marke": "$marke",
-        "produktserie": "$produktserie",
-        "zolltarifnummer": "$zolltarifnummer"
-      },
-      produkts: {
-        $push: "$mitegronummer7"
-      }
-    }
-  }, {
-    $out: "ProduktgruppeTest"
-  }], { allowDiskUse: true })
+  coll.aggregate(testPipeline2, { allowDiskUse: true })
   .toArray((err, results) => {
     if (err) {
       return console.error(err);

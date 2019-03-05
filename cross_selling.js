@@ -8,10 +8,7 @@ const {
 const MongoClient = require('mongodb').MongoClient;
 const schedule = require('node-schedule');
 
-const testPipeline1 = require('./pipelines/full_pipeline_basket.js');
-
-
-// let j = schedule.scheduleJob('* */6 * * *', cross_selling);
+const testPipeline1 = require('./pipelines/full_pipeline_cross_selling.js');
 
 async function cross_selling() {
   const coll = await collection({
