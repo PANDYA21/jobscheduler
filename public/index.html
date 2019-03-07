@@ -17,7 +17,7 @@
       return await http.get(options);
     })();
     const output = document.getElementById('output');
-    output.innerHTML = JSON.stringify(res.response.message);
+    output.innerHTML = JSON.stringify(res.response.message, null, 2);
   }
   </script>
 </head>
@@ -28,28 +28,35 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-3"></div>
+		<div class="col-2"></div>
 		<div class ="col-2 schedules">
 			<h2> 2a-Schedule </h2>
-			<button onclick="query('2a','start')" class="btn btn-primary action">Start</button><br><br>
-			<button onclick="query('2a','end')" class="btn btn-primary action">End</button><br><br>
-			<button onclick="query('2a','status')" class="btn btn-primary action">Status</button><br><br>
+			<button onclick="query('2a','start')" class="btn btn-outline-primary action">Start</button><br><br>
+			<button onclick="query('2a','end')" class="btn btn-outline-primary action">End</button><br><br>
+			<button onclick="query('2a','status')" class="btn btn-outline-primary action">Status</button><br><br>
 		</div>
 		<div class ="col-2 schedules">
 			<h2> 2b-Schedule </h2>
-			<button onclick="query('2b','start')" class="btn btn-primary action">Start</button><br><br>
-			<button onclick="query('2b','end')" class="btn btn-primary action">End</button><br><br>
-			<button onclick="query('2b','status')" class="btn btn-primary action">Status</button><br><br>
+			<button onclick="query('2b','start')" class="btn btn-outline-primary action">Start</button><br><br>
+			<button onclick="query('2b','end')" class="btn btn-outline-primary action">End</button><br><br>
+			<button onclick="query('2b','status')" class="btn btn-outline-primary action">Status</button><br><br>
 
 		</div>
 		<div class ="col-2 schedules">
 			<h2> 2c-Schedule </h2>
-			<button onclick="query('2c','start')" class="btn btn-primary action">Start</button><br><br>
-			<button onclick="query('2c','end')" class="btn btn-primary action">End</button><br><br>
-			<button onclick="query('2c','status')" class="btn btn-primary action">Status</button><br><br>
+			<button onclick="query('2c','start')" class="btn btn-outline-primary action">Start</button><br><br>
+			<button onclick="query('2c','end')" class="btn btn-outline-primary action">End</button><br><br>
+			<button onclick="query('2c','status')" class="btn btn-outline-primary action">Status</button><br><br>
 
 		</div>
-		<div class="col-3"></div>
+		<div class ="col-2 schedules">
+			<h2> 1c-Schedule </h2>
+			<button onclick="query('1c','start')" class="btn btn-outline-primary action">Start</button><br><br>
+			<button disabled="" onclick="query('1c','end')" class="btn btn-outline-primary action">End</button><br><br>
+			<button onclick="query('1c','status')" class="btn btn-outline-primary action">Status</button><br><br>
+
+		</div>
+		<div class="col-2"></div>
 		</div>
 		<div class="row">
 			<div class="col-3"></div>

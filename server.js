@@ -106,6 +106,19 @@ app.get('/trigger/2c/?*?', (req, res, next) => {
 	}
 });
 
+const { exec, status } = require('./child_process');
+
+app.get('/trigger/1c/start', (req, res, next) => {
+	exec().then().catch(console.error);
+	res.status(200).json({message: 'Pynode started'});
+});
+
+app.get('/trigger/1c/status', (req, res, next) => {
+	status((err, resp) => {
+		err ? res.status(500).send(err) : res.status(200).json({ message: resp });
+	});
+});
+
 app.listen(8080, () => {
   console.info('Server starting at 8080');
 });
