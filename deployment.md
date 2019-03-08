@@ -15,6 +15,9 @@
     ```
 1. Build docker image
     ```bash
+    cd <this_repo>
+    wget https://github.com/apache-spark-on-k8s/spark/releases/download/v2.2.0-kubernetes-0.5.0/spark-2.2.0-k8s-0.5.0-bin-with-hadoop-2.7.3.tgz
+    tar -xzvf spark-2.2.0-k8s-0.5.0-bin-with-hadoop-2.7.3.tgz
     docker build -t %repo%/%imagename%:%tagname% .
     ```
 1. Push it to IBMCloud CR
