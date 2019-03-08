@@ -17,24 +17,8 @@ async function getCronJobColl() {
   });
 }
 
-// function shapeStatusDoc(job) {
-//   let obj = {
-//     jobId: 'job_' + job.jobStartedAt.toString(),
-//     jobStartedAt: job.jobStartedAt,
-//     jobCompletedAt: job.jobCompletedAt,
-//     status: job.status
-//   };
-//   for (let key in job) {
-//     if (key !== 'jobStartedAt' && key !== 'jobCompletedAt' && key !== 'status' && key !== '_id') {
-//       obj[key] = job[key];
-//     }
-//   }
-//   return obj;
-// }
-
 async function writeStatus(job) {
   const coll = await getCronJobColl();
-  console.log('WRITING doc');
   return new Promise((resolve, reject) => {
     const statusDocs = new Job(job);
     coll.insertOne(statusDocs, { w: 1 }, (err, result) => {
@@ -46,7 +30,6 @@ async function writeStatus(job) {
 
 async function updateStatus(job) {
   const coll = await getCronJobColl();
-  console.log('At update: ', job);
   let doc = (await coll.find({ jobId: 'job_' + job.jobStartedAt.toString() }).toArray())[0];
   if (!doc)
 	  return await writeStatus(job);
@@ -54,7 +37,6 @@ async function updateStatus(job) {
     doc[key] = job[key];
   }
   const statusDoc = new Job(doc);
-  console.log('UPDATING doc');
   return new Promise((resolve, reject) => {
     coll.update({ _id: doc._id }, { $set: statusDoc }, { upsert: true }, (err, result) => {
       err ? reject(err) : resolve(result.result);
@@ -70,12 +52,26 @@ async function getStatus(job) {
   return docs;
 }
 
-async function getActiveJobs() {
+async function getActiveJobs(jobSubject) {
   const coll = await getCronJobColl();
-  const docs = await coll.find({ active: true }).toArray();
+  const docs = await coll.find({ active: true, jobSubject }).toArray();
+  coll.s.db.s.topology.close();
+  return docs;
+}
+
+async function getAllJobs() {
+  const coll = await getCronJobColl();
+  const docs = await coll.find().toArray();
+  coll.s.db.s.topology.close();
+  return docs;
+}
+
+async function getLastJobOfSubject(jobSubject='') {
+  const coll = await getCronJobColl();
+  const docs = await coll.find({ jobSubject }).sort({ jobStartedAt: -1 }).limit(1).toArray();
   coll.s.db.s.topology.close();
   return docs;
 }
 
 
-module.exports = { writeStatus, updateStatus, getStatus, getActiveJobs };
+module.exports = { writeStatus, updateStatus, getStatus, getActiveJobs, getAllJobs, getLastJobOfSubject };
