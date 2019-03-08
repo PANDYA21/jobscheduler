@@ -33,46 +33,23 @@ const SCHEDULE_2c = '* 30 6 * * *';
 const SCHEDULE_1b = '* 45 6 * * *';
 const SCHEDULE_1c = '* 0 7 * * *';
 
-function getStatusForJob(jobSubject, cb) {
-  if (job[jobSubject]) {
-    if(job[jobSubject].nextInvocation() == null){
-      return cb(null, {message: [{message: 'Job-' + jobSubject + ' was canceled.'}]});
-    } else {
-      return cb(null, {message: [{message: 'Job-' + jobSubject + ' is scheduled. Next Invocation at: '+ job[jobSubject].nextInvocation()}]});
-    }
-  } else {
-    return cb(null, {message: [{message: 'Job-' + jobSubject + ' is not scheduled.'}]});
-  }
+async function getStatusForJob(jobSubject, cb) {
+  const status = await getLastJobOfSubject(jobSubject);
+  cb(null, { message: status });
 }
-
-// const jobb = schedule.scheduleJob('5 * * * * *', () => { console.log('hello\n\n') });
-// console.log(jobb);
-// console.log(jobb.triggeredJobs());
-// console.log(jobb.trackInvocation()); // throws error
 
 async function startJob(jobSubject, jobSchedule, jobFunction, cb) {
   job[jobSubject] = schedule.scheduleJob(jobSchedule, jobFunction);
 
-  // rite current status in db
+  // write current status in db
   const jobStartedAt = Date.now();
-  await writeStatus({ 
-    jobStartedAt, 
-    status: 'Started', 
-    jobSubject, 
-    jobSchedule, 
-    nextExecution: job[jobSubject].nextInvocation(),
-    nTriggeredExecutions: job[jobSubject].triggeredJobs()
-  });
-
-  // update the status in db
-  const jobCompletedAt = Date.now();
-  await updateStatus({
+  await writeStatus({
     jobStartedAt,
-    jobCompletedAt,
+    active: false,
+    status: 'Queued', 
     jobSubject,
-    status: 'Completed',
-    duration: jobCompletedAt - jobStartedAt,
-    active: false
+    jobSchedule,
+    nextExecution: (job[jobSubject].nextInvocation()).toString()
   });
 
   return cb(null, {message: [{message: 'Job-' + jobSubject + ' started'}]});
@@ -133,8 +110,12 @@ function endJob2c(cb) {
 
 
 module.exports = {
-  startJob1b,
-  startJob1c,
+  startJob1b: async function(cb) {
+    await startJob('1b', SCHEDULE_1b, startJob1b, cb);
+  },
+  startJob1c: async function(cb) {
+    await startJob('1c', SCHEDULE_1c, startJob1c, cb);
+  },
   getStatusForJob1b,
   getStatusForJob1c,
   startJob2a,
@@ -147,3 +128,20 @@ module.exports = {
   endJob2b,
   endJob2c
 };
+
+// on start up:
+module.exports.startJob2a((err, resp) => {
+  err ? console.error(err) : console.log(resp);
+});
+module.exports.startJob2b((err, resp) => {
+  err ? console.error(err) : console.log(resp);
+});
+module.exports.startJob2c((err, resp) => {
+  err ? console.error(err) : console.log(resp);
+});
+module.exports.startJob1b((err, resp) => {
+  err ? console.error(err) : console.log(resp);
+});
+module.exports.startJob1c((err, resp) => {
+  err ? console.error(err) : console.log(resp);
+});

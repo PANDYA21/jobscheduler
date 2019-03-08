@@ -1,57 +1,35 @@
 const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const { writeStatus, updateStatus, getStatus, getActiveJobs } = require('./../job_logger');
-
-// const { spawn, exec } = require('child_process');
-// const ls = spawn('C:/Apache/spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit test.py');
-
-// ls.stdout.on('data', (data) => {
-//   console.log(`stdout: ${data}`);
-// });
-
-// ls.stderr.on('data', (data) => {
-//   console.log(`stderr: ${data}`);
-// });
-
-// ls.on('close', (code) => {
-//   console.log(`child process exited with code ${code}`);
-// });
+const { exec, status } = require('./core');
+const SCRIPT_1B_PATH = 'child_process/test_1b.py';
+const SCRIPT_1C_PATH = 'child_process/test_1c.py';
 
 
-async function _exec() {
-  const jobStartedAt = Date.now();
-  await writeStatus({ jobStartedAt, status: 'Started' });
-  const { error, stdout, stderr } = await exec('C:/Apache/spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit child_process/test.py');
-  const jobCompletedAt = Date.now();
-  await updateStatus({
-    jobStartedAt,
-    jobCompletedAt,
-    status: 'Completed',
-    error,
-    stdout,
-    stderr,
-    duration: jobCompletedAt - jobStartedAt,
-    active: false
-  });
-  return {
-    error,
-    stdout,
-    stderr,
-    jobStartedAt: Date(jobStartedAt),
-    jobCompletedAt: Date(jobCompletedAt),
-    duration: jobCompletedAt - jobStartedAt
-  };
+async function startJob1b() {
+  return await exec('1b', SCRIPT_1B_PATH);
 }
 
-async function status() {
-  return await getActiveJobs()
-};
+async function startJob1c() {
+  return await exec('1c', SCRIPT_1C_PATH);
+}
 
+async function getStatusForJob1b() {
+  return await status('1b');
+}
+
+async function getStatusForJob1c() {
+  return await status('1c');
+}
 
 module.exports = {
-  exec: _exec,
-  status: function(cb) {
-    status()
+  startJob1b,
+  startJob1c,
+  getStatusForJob1b: function(cb) {
+    getStatusForJob1b()
+      .then(resp => cb(null, resp))
+      .catch(err => cb(err, null));
+  },
+  getStatusForJob1c: function(cb) {
+    getStatusForJob1c()
       .then(resp => cb(null, resp))
       .catch(err => cb(err, null));
   }

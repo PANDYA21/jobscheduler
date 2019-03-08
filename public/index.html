@@ -1,76 +1,103 @@
 <html>
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="index.css">
-	<script src="dist/index.js"></script>
-	<script type="text/javascript">
-  async function query(model, query) {
-	this.http = new Http();
-    const res = await (async function fetchData() {
-      const options = {
-		endpoint: '/trigger/' + model + '/' + query,
-        additional_headers: [{
-          'content-type': 'application/json'
-        }]
-      };
-      return await http.get(options);
-    })();
-    const output = document.getElementById('output');
-    output.innerHTML = JSON.stringify(res.response.message, null, 2);
-  }
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <script src="dist/index.js"></script>
+  <script type="text/javascript">
+    function clearTable() {
+      const table = document.getElementById('output_table');
+      table.innerHTML = '';
+    }
+
+    async function query(model, query) {
+      clearTable();
+      this.http = new Http();
+      const res = await (async function fetchData() {
+        const options = {
+      endpoint: '/trigger/' + model + '/' + query,
+          additional_headers: [{
+            'content-type': 'application/json'
+          }]
+        };
+        return await http.get(options);
+      })();
+      
+      const table = document.getElementById('output_table');
+      console.log(res.response.message);
+      const resp = res.response.message[0] ? res.response.message[0] : res.response.message;
+      for (let key in resp) {
+        const row = table.insertRow();
+        const cell0 = row.insertCell(0);
+        const cell1 = row.insertCell(1);
+        cell0.innerHTML = key;
+        if (key == 'jobStartedAt' || key == 'jobCompletedAt') {
+          cell1.innerHTML = new Date(resp[key]);
+        } else {
+          cell1.innerHTML = resp[key];
+        }
+        
+      }
+    }
   </script>
 </head>
 <body>
-	<div class= "row "> 
-		<div class=" col-12 header">
-			<h1> Mitegro Cron-Jobs GUI <h1>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-2"></div>
-		<div class ="col-2 schedules">
-			<h2> 2a-Schedule </h2>
-			<button onclick="query('2a','start')" class="btn btn-outline-primary action">Start</button><br><br>
-			<button onclick="query('2a','end')" class="btn btn-outline-primary action">End</button><br><br>
-			<button onclick="query('2a','status')" class="btn btn-outline-primary action">Status</button><br><br>
-		</div>
-		<div class ="col-2 schedules">
-			<h2> 2b-Schedule </h2>
-			<button onclick="query('2b','start')" class="btn btn-outline-primary action">Start</button><br><br>
-			<button onclick="query('2b','end')" class="btn btn-outline-primary action">End</button><br><br>
-			<button onclick="query('2b','status')" class="btn btn-outline-primary action">Status</button><br><br>
+  <div class= "row "> 
+    <div class=" col-12 header">
+      <h1> Mitegro Cron-Jobs GUI <h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class ="col-2 schedules">
+      <h2> 2a-Schedule </h2>
+      <button onclick="query('2a','start')" class="btn btn-outline-primary action">Start</button><br><br>
+      <button onclick="query('2a','end')" class="btn btn-outline-primary action">End</button><br><br>
+      <button onclick="query('2a','status')" class="btn btn-outline-primary action">Status</button><br><br>
+    </div>
+    <div class ="col-2 schedules">
+      <h2> 2b-Schedule </h2>
+      <button onclick="query('2b','start')" class="btn btn-outline-primary action">Start</button><br><br>
+      <button onclick="query('2b','end')" class="btn btn-outline-primary action">End</button><br><br>
+      <button onclick="query('2b','status')" class="btn btn-outline-primary action">Status</button><br><br>
 
-		</div>
-		<div class ="col-2 schedules">
-			<h2> 2c-Schedule </h2>
-			<button onclick="query('2c','start')" class="btn btn-outline-primary action">Start</button><br><br>
-			<button onclick="query('2c','end')" class="btn btn-outline-primary action">End</button><br><br>
-			<button onclick="query('2c','status')" class="btn btn-outline-primary action">Status</button><br><br>
-
-		</div>
-		<div class ="col-2 schedules">
-			<h2> 1c-Schedule </h2>
-			<button onclick="query('1c','start')" class="btn btn-outline-primary action">Start</button><br><br>
-			<button disabled="" onclick="query('1c','end')" class="btn btn-outline-primary action">End</button><br><br>
-			<button onclick="query('1c','status')" class="btn btn-outline-primary action">Status</button><br><br>
-
-		</div>
-		<div class="col-2"></div>
-		</div>
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<map> 
-				<area>
-					<a class="statusHeader"> Aktueller Status des Jobs:</a><br>
-				</area>
-				<area id="output">
-					
-				</area>
-				</map>
-			</div>
-			<div class="col-3"></div>
-		</div>	
+    </div>
+    <div class ="col-2 schedules">
+      <h2> 2c-Schedule </h2>
+      <button onclick="query('2c','start')" class="btn btn-outline-primary action">Start</button><br><br>
+      <button onclick="query('2c','end')" class="btn btn-outline-primary action">End</button><br><br>
+      <button onclick="query('2c','status')" class="btn btn-outline-primary action">Status</button><br><br>
+    </div>
+    <div class ="col-2 schedules">
+      <h2> 1b-Schedule </h2>
+      <button onclick="query('1b','start')" class="btn btn-outline-primary action">Start</button><br><br>
+      <button disabled="" onclick="query('1b','end')" class="btn btn-outline-primary action">End</button><br><br>
+      <button onclick="query('1b','status')" class="btn btn-outline-primary action">Status</button><br><br>
+    </div>
+    <div class ="col-2 schedules">
+      <h2> 1c-Schedule </h2>
+      <button onclick="query('1c','start')" class="btn btn-outline-primary action">Start</button><br><br>
+      <button disabled="" onclick="query('1c','end')" class="btn btn-outline-primary action">End</button><br><br>
+      <button onclick="query('1c','status')" class="btn btn-outline-primary action">Status</button><br><br>
+    </div>
+    <div class="col-1"></div>
+    </div>
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <table class="table">
+          <thead style="font-weight: bold;">
+            <tr>
+              <td colspan="2">STATUS</td>
+            </tr>
+          </thead>
+          <tbody id="output_table">
+            <tr></tr>
+          </tbody>
+        </table>
+        <map>
+      </div>
+      <div class="col-3"></div>
+    </div>  
 </body>
 </html>

@@ -7,16 +7,29 @@ class Job {
   }
 
   init() {
+    this.setSuplioedValues();
     const now = Date.now();
     const nowString = this.jobStartedAt ? this.jobStartedAt.toString() : now.toString();
-    return {
+    this.details = Object.assign(this.details, {
       jobId: 'job_' + nowString,
       jobStartedAt: this.jobStartedAt || now,
       jobCompletedAt: this.jobCompletedAt || null,
       duration: this.duration || null,
       status: this.status || '',
-      active: typeof this.active === 'undefined' ? true : this.active
+      active: typeof this.active === 'undefined' ? true : this.active,
+      jobSubject: this.jobSubject || '',
+      nextExecution: this.nextExecution || null,
+      lastExecution: this.lastExecution || null
+    });
+    return this.details;
+  }
+
+  setSuplioedValues() {
+    let details = {};
+    for (let key in this) {
+      details[key] = this[key];
     }
+    this.details = details;
   }
 }
 
