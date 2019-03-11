@@ -4,8 +4,8 @@ export executorimage=bhaumikpandya/spark-executor-py
 export initimage=bhaumikpandya/spark-init
 export tagname=latest
 export serviceAccountName=spark
-export appname=pysparkTest
-export driverPodName=sparkdriver
+export appname=cronjobstest
+export driverPodName=cronjobstestdriver
 export kubernetesNamespace=default
 export mongoUri=mongodb://apiomat:Qh0Zw47u5t2x1@158.177.122.67:28017/Spark.temp?authSource=admin
 export resourceStagingServerPort=10000
@@ -14,9 +14,8 @@ export resourceStagingServerExternalIp=$(kubectl get svc -o jsonpath='{.items[?(
 export resourceStagingServerLoadBalancerPodName=$(kubectl get po -l resource-staging-server-instance=default -o jsonpath='{.items[*].metadata.name}')
 export resourceStagingServerInternalIp=$(kubectl get po -o jsonpath='{.items[?(@.metadata.name=="'$resourceStagingServerLoadBalancerPodName'")].spec.nodeName}')
 export resourceStagingServerInternalPort=31000
-export kubernetesuri=k8s://http://127.0.0.1:8001
 cd $SPARK_HOME
-bin/spark-submit \
+./bin/spark-submit \
   --packages=org.mongodb.spark:mongo-spark-connector_2.11:2.3.0 \
   --deploy-mode cluster \
   --master k8s://http://127.0.0.1:8001 \
@@ -40,4 +39,4 @@ bin/spark-submit \
   --conf spark.mongodb.input.uri=$mongoUri \
   --conf spark.mongodb.output.uri=$mongoUri \
   --jars local:///opt/spark/examples/jars/spark-examples_2.11-2.2.0-k8s-0.5.0.jar \
-  file:///home/bhaumik/test.py
+  file:///child_process/test_1b.py

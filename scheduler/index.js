@@ -30,7 +30,7 @@ let job = {
 const SCHEDULE_2a = '* 5 6 * * *'; // '*/5 * * * *'; // '5 * * * * *'; // '* 5 6 * * *';
 const SCHEDULE_2b = '* 15 6 * * *';
 const SCHEDULE_2c = '* 30 6 * * *';
-const SCHEDULE_1b = '* 45 6 * * *';
+const SCHEDULE_1b = '5 * * * * *'; // '* 45 6 * * *';
 const SCHEDULE_1c = '* 0 7 * * *';
 
 async function getStatusForJob(jobSubject, cb) {
