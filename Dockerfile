@@ -12,6 +12,7 @@ COPY . .
 
 # set env vars
 ENV SPARK_HOME spark-2.2.0-k8s-0.5.0-bin-2.7.3
+ENV NODE_ENV production
 
 # install nodejs, npm and yarn
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -38,7 +39,7 @@ RUN chmod +x ./kubectl
 RUN ./kubectl get nodes
 
 # test pyspark-submit run
-RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit /child_process/test_1b.py
+# RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit /child_process/test_1b.py
 # # install nodejs dependencies (requires git cli)
 # RUN npm install --no-cache git
 # RUN npm install

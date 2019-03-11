@@ -113,3 +113,10 @@ app.get('/trigger/1c/status', (req, res, next) => {
 app.listen(8080, () => {
   console.info('Server starting at 8080');
 });
+
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', reason.stack || reason);
+  // Recommended: send the information to sentry.io
+  // or whatever crash reporting service you use
+})

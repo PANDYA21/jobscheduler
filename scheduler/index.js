@@ -111,10 +111,18 @@ function endJob2c(cb) {
 
 module.exports = {
   startJob1b: async function(cb) {
-    await startJob('1b', SCHEDULE_1b, startJob1b, cb);
+    try {
+      await startJob('1b', SCHEDULE_1b, startJob1b, cb);
+    } catch(e) {
+      cb(e, null);
+    }
   },
   startJob1c: async function(cb) {
-    await startJob('1c', SCHEDULE_1c, startJob1c, cb);
+    try {
+      await startJob('1c', SCHEDULE_1c, startJob1c, cb);
+    } catch(e) {
+      cb(e, null);
+    }
   },
   getStatusForJob1b,
   getStatusForJob1c,
