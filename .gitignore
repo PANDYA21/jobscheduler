@@ -14,7 +14,7 @@ spark-warehouse
 
 # nodejs (because this is not a node project)
 node_modules
-# package-lock.json
+package-lock.json
 test.js
 
 # bower
@@ -38,3 +38,8 @@ proplanet_zugang
 # mongodb
 dump/*
 *.bson
+
+# other
+metastore_db/
+spark-2.2.0-k8s-0.5.0-bin-2.7.3/
+
