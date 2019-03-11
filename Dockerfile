@@ -14,7 +14,8 @@ RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
   yarn \
   && rm -rf /var/lib/apt/lists/*
 
-RUN ls
+RUN curl -fsSL https://clis.ng.bluemix.net/install/linux | sh
+# RUN ibmcloud login -a api.eu-de.bluemix.net -u $USER -p $PWD
 RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit /child_process/test_1b.py
 
 # RUN npm install --no-cache git
