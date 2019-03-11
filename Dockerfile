@@ -3,7 +3,6 @@ EXPOSE 8080
 COPY . .
 ENV SPARK_HOME spark-2.2.0-k8s-0.5.0-bin-2.7.3
 RUN ls
-RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit ./child_process/tesst_1b.py
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -14,6 +13,8 @@ RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
   nodejs \
   yarn \
   && rm -rf /var/lib/apt/lists/*
+
+RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit ./child_process/tesst_1b.py
 
 RUN npm install
 CMD npm start
