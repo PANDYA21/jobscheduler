@@ -49,17 +49,17 @@ if (process.env.NODE_ENV.indexOf('prod') === -1) {
 console.log({ NODE_ENV: process.env.NODE_ENV });
 console.log({ KUBECONFIG: process.env.KUBECONFIG });
 
-const proxy = spawn('./kubectl', ['proxy', '-p', '8001']);
+const proxy = spawn('kubectl', ['proxy', '-p', '8001']);
 
 proxy.stdout.on('data', (data) => {
-  console.log(`stdout: ${data}`);
+  console.log(`kubectl proxy - stdout: ${data}`);
 });
 
 proxy.stderr.on('data', (data) => {
-  console.log(`stderr: ${data}`);
+  console.log(`kubectl proxy - stderr: ${data}`);
 });
 
 proxy.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
+  console.log(`kubectl proxy - process exited with code ${code}`);
 });
 

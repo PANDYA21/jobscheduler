@@ -1,6 +1,7 @@
+export subject=1b
 export subjectscript=/child_process/test_1b.py
-chmod +x ./submit_common.sh
-sh ./submit_common.sh
+chmod +x /child_process/submit_common.sh
+sh /child_process/submit_common.sh
 
 # export driverimage=bhaumikpandya/spark-driver-py
 # export executorimage=bhaumikpandya/spark-executor-py
