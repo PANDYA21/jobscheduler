@@ -1,11 +1,11 @@
-export myscript=/home/bhaumik/test.py
 export driverimage=bhaumikpandya/spark-driver-py
 export executorimage=bhaumikpandya/spark-executor-py
 export initimage=bhaumikpandya/spark-init
 export tagname=latest
 export serviceAccountName=spark
-export appname=cronjobstest
-export driverPodName=cronjobstestdriver
+export now=$(date +'%s')
+export appname=cronjobstest_$(echo $now)
+export driverPodName=cronjobstestdriver_$(echo $now)
 export kubernetesNamespace=default
 export mongoUri=mongodb://apiomat:Qh0Zw47u5t2x1@158.177.122.67:28017/Spark.temp?authSource=admin
 export resourceStagingServerPort=10000
@@ -14,6 +14,7 @@ export resourceStagingServerExternalIp=$(./kubectl get svc -o jsonpath='{.items[
 export resourceStagingServerLoadBalancerPodName=$(./kubectl get po -l resource-staging-server-instance=default -o jsonpath='{.items[*].metadata.name}')
 export resourceStagingServerInternalIp=$(./kubectl get po -o jsonpath='{.items[?(@.metadata.name=="'$resourceStagingServerLoadBalancerPodName'")].spec.nodeName}')
 export resourceStagingServerInternalPort=31000
+
 $SPARK_HOME/bin/spark-submit \
   --packages=org.mongodb.spark:mongo-spark-connector_2.11:2.3.0 \
   --deploy-mode cluster \
@@ -37,4 +38,4 @@ $SPARK_HOME/bin/spark-submit \
   --conf spark.kubernetes.authenticate.resourceStagingServer.useServiceAccountCredential=false \
   --conf spark.mongodb.input.uri=$mongoUri \
   --conf spark.mongodb.output.uri=$mongoUri \
-  file:///child_process/test_1b.py
+  file://$subjectscript

@@ -8,7 +8,7 @@ console.log({ 'SPARK_HOME': SPARK_HOME });
 async function _exec(jobSubject, scriptPath) {
   const jobStartedAt = Date.now();
   await writeStatus({ jobStartedAt, status: 'Started', jobSubject });
-  const { error, stdout, stderr } = await exec(`chmod +x ./child_process/submit.sh&&./child_process/submit.sh`); // await exec(`${SPARK_HOME}bin/spark-submit ${scriptPath}`);
+  const { error, stdout, stderr } = await exec(`chmod +x ./child_process/submit_${jobSubject}.sh&&./child_process/submit_${jobSubject}.sh`); // await exec(`${SPARK_HOME}bin/spark-submit ${scriptPath}`);
   console.log({ error, stdout, stderr });
   const jobCompletedAt = Date.now();
   return await updateStatus({
@@ -49,7 +49,7 @@ if (process.env.NODE_ENV.indexOf('prod') === -1) {
 console.log({ NODE_ENV: process.env.NODE_ENV });
 console.log({ KUBECONFIG: process.env.KUBECONFIG });
 
-const proxy = spawn('./kubectl', ['proxy', '-p', '9001']);
+const proxy = spawn('./kubectl', ['proxy', '-p', '8001']);
 
 proxy.stdout.on('data', (data) => {
   console.log(`stdout: ${data}`);
