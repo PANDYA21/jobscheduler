@@ -39,4 +39,8 @@ $SPARK_HOME/bin/spark-submit \
   --conf spark.kubernetes.authenticate.resourceStagingServer.useServiceAccountCredential=false \
   --conf spark.mongodb.input.uri=$mongoUri \
   --conf spark.mongodb.output.uri=$mongoUri \
+  --conf spark.kubernetes.driver.label.app=cronjobs \
+  --conf spark.kubernetes.driver.label.subject=$subject \
+  --conf spark.kubernetes.executor.label.app=cronjobs \
+  --conf spark.kubernetes.executor.label.subject=$subject \
   file://$subjectscript
