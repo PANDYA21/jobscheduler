@@ -9,17 +9,18 @@ Following steps are to be executed on a linux machine with following requirement
 1. set env vars
     ```bash
     # repo
-    SET repo=registry.eu-de.bluemix.net/datalake
+    export oldrepo=registry.eu-de.bluemix.net/datalake
+    export repo=de.icr.io/datalake
     # image name
-    SET imagename=cronjobs
+    export imagename=cronjobs
     # image tag
-    SET tagname=0.0.1
+    export tagname=0.1.0
     # k8s deployment name
-    SET appname=$imagename
+    export appname=$imagename
     # app listening port
-    SET port=8080
+    export port=8080
     # k8s cluster-name
-    SET clustername=mitegro-qa01
+    export clustername=mitegro-qa01
     ```
 1. Build docker image
     ```bash
@@ -49,7 +50,7 @@ Following steps are to be executed on a linux machine with following requirement
     ```
 1. Run a container as a deployment on k8s with that image
     ```bash
-    kubectl run $appname --image=$repo/$imagename:$tagname --port=$port --image-pull-policy=Always
+    kubectl run $appname --image=$oldrepo/$imagename:$tagname --port=$port --image-pull-policy=Always
     ```
 1. Check if a pod is running
     ```bash

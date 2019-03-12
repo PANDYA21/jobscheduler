@@ -1,5 +1,7 @@
 # base java image
 FROM openjdk:8-jre@sha256:143e37a40011243684acf5e0cca99db04cf2675dae54aefcc464d616916dd27b
+# maintainer
+MAINTAINER bhaumik.pandya@synaigy.com
 # buid-arguments
 ARG IBM_USER
 ARG IBM_PWD

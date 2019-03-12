@@ -27,11 +27,11 @@ let job = {
   '2c': null
 };
 
-const SCHEDULE_2a = '* 5 6 * * *'; // '*/5 * * * *'; // '5 * * * * *'; // '* 5 6 * * *';
-const SCHEDULE_2b = '* 15 6 * * *';
-const SCHEDULE_2c = '* 30 6 * * *';
-const SCHEDULE_1b = '* 45 6 * * *';
-const SCHEDULE_1c = '5 * * * * *'; // '* 0 7 * * *';
+const SCHEDULE_2a = '* 5 * * * *'; // '* 5 6 * * *'; // '5 * * * * *';
+const SCHEDULE_2b = '* 15 * * * *'; // '* 15 6 * * *';
+const SCHEDULE_2c = '* 30 * * * *'; // '* 30 6 * * *';
+const SCHEDULE_1b = '* 45 * * * *'; // '* 45 6 * * *';
+const SCHEDULE_1c = '* 0 * * * *'; // '* 0 7 * * *';
 
 async function getStatusForJob(jobSubject, cb) {
   const status = await getLastJobOfSubject(jobSubject);
@@ -69,29 +69,53 @@ function endJob(jobSubject, cb) {
 
 
 function startJob2a(cb) {
-  startJob('2a', SCHEDULE_2a, aggregate2a, cb);
+  try {
+    startJob('2a', SCHEDULE_2a, aggregate2a, cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 function startJob2b(cb) {
-  startJob('2b', SCHEDULE_2b, aggregate2b, cb);
+  try {
+    startJob('2b', SCHEDULE_2b, aggregate2b, cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 function startJob2c(cb) {
-  startJob('2c', SCHEDULE_2c, aggregate2c, cb);
+  try {
+    startJob('2c', SCHEDULE_2c, aggregate2c, cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 
 
 function getStatusForJob2a(cb) {
-  getStatusForJob('2a', cb);
+  try {
+    getStatusForJob('2a', cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 function getStatusForJob2b(cb) {
-  getStatusForJob('2b', cb);
+  try {
+    getStatusForJob('2b', cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 function getStatusForJob2c(cb) {
-  getStatusForJob('2c', cb);
+  try {
+    getStatusForJob('2c', cb);
+  } catch(e) {
+    cb(e, null);
+  }
 }
 
 
