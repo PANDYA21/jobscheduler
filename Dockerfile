@@ -1,6 +1,7 @@
 # base java image
 FROM openjdk:8-jre@sha256:143e37a40011243684acf5e0cca99db04cf2675dae54aefcc464d616916dd27b
 # buid-arguments
+ARG IBM_USER
 ARG IBM_PWD
 # listening port
 EXPOSE 8080
@@ -21,7 +22,7 @@ RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
 # install imcloud cli
 RUN curl -fsSL https://clis.ng.bluemix.net/install/linux | sh
 # login to ibmcloud
-RUN ibmcloud login -a api.eu-de.bluemix.net -u bhaumik.pandya@bluetrade.de -p $IBM_PWD -c 54fc328c810341d7890b50a2e9e54b2f
+RUN ibmcloud login -a api.eu-de.bluemix.net -u $IBM_USER -p $IBM_PWD -c 54fc328c810341d7890b50a2e9e54b2f
 # setup ibmcloud container-service
 RUN ibmcloud plugin install container-service
 RUN ibmcloud cs cluster-config mitegro-qa01
