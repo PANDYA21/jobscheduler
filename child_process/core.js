@@ -43,7 +43,7 @@ if (!process.env.NODE_ENV) {
 if (process.env.NODE_ENV.indexOf('prod') === -1) {
   process.env.KUBECONFIG = '/home/bhaumik/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
 } else { 
-//  process.env.KUBECONFIG = '/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
+  process.env.KUBECONFIG = '/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
 }
 
 console.log({ NODE_ENV: process.env.NODE_ENV });
