@@ -21,21 +21,20 @@ const testPipeline2 = require('./pipelines/komplemntaere_empfehlungen_produkt_gr
 const testPipeline3 = require('./pipelines/full_pipeline_basket.js');
 
 
-async function getColl() {
+async function getColl(colname) {
   return await collection({
     url: globals.MONGO_URI,
     dbname: "Stammdaten-test",
-    collectionname: "Bewegungsdaten",
+    collectionname: colname,
     keepAlive: true
   });
 }
-
 
 async function _aggregate2a() {
   const jobStartedAt = Date.now();
   const jobSubject = '2a';
   await writeStatus({ jobStartedAt, status: 'Started', jobSubject });
-  const coll = await getColl();
+  const coll = await getColl("Bewegungsdaten");
   await coll.aggregate(testPipeline1, { allowDiskUse: true }).toArray();
   const jobCompletedAt = Date.now();
   await updateStatus({
@@ -54,7 +53,7 @@ async function _aggregate2b() {
   const jobStartedAt = Date.now();
   const jobSubject = '2b';
   await writeStatus({ jobStartedAt, status: 'Started', jobSubject });
-  const coll = await getColl();
+  const coll = await getColl("Produkt");
   await coll.aggregate(testPipeline2, { allowDiskUse: true }).toArray();
   const jobCompletedAt = Date.now();
   await updateStatus({
@@ -73,7 +72,7 @@ async function _aggregate2c() {
   const jobStartedAt = Date.now();
   const jobSubject = '2c';
   await writeStatus({ jobStartedAt, status: 'Started', jobSubject });
-  const coll = await getColl();
+  const coll = await getColl("Bewegungsdaten");
   await coll.aggregate(testPipeline3, { allowDiskUse: true }).toArray();
   const jobCompletedAt = Date.now();
   await updateStatus({

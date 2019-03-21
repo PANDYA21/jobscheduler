@@ -26,12 +26,27 @@ let job = {
   '2b': null,
   '2c': null
 };
+var rule2a= new schedule.RecurrenceRule();
+rule2a.minute =0;
+rule2a.hour = 6;
+var rule2b= new schedule.RecurrenceRule();
+rule2b.minute = 15
+rule2b.hour = 6;
+var rule2c= new schedule.RecurrenceRule();
+rule2c.minute = 30;
+rule2c.hour = 6;
+var rule1b= new schedule.RecurrenceRule();
+rule1b.minute = 4;
+//rule1b.hour = 6;
+var rule1c= new schedule.RecurrenceRule();
+rule1c.minute = 48;
+// rule1c.hour = ;
 
-const SCHEDULE_2a = '* 5 * * * *'; // '* 5 6 * * *'; // '5 * * * * *';
-const SCHEDULE_2b = '* 15 * * * *'; // '* 15 6 * * *';
-const SCHEDULE_2c = '* 30 * * * *'; // '* 30 6 * * *';
-const SCHEDULE_1b = '* 45 * * * *'; // '* 45 6 * * *';
-const SCHEDULE_1c = '* 0 * * * *'; // '* 0 7 * * *';
+const SCHEDULE_2a = rule2a;
+const SCHEDULE_2b = rule2b;
+const SCHEDULE_2c = rule2c;
+const SCHEDULE_1b = rule1b;
+const SCHEDULE_1c = rule1c;
 
 async function getStatusForJob(jobSubject, cb) {
   const status = await getLastJobOfSubject(jobSubject);
@@ -135,9 +150,10 @@ function endJob2c(cb) {
 
 module.exports = {
   startJob1b: async function(cb) {
-    try {
-      await startJob('1b', SCHEDULE_1b, startJob1b, cb);
-    } catch(e) {
+    try {    
+  await startJob('1b', SCHEDULE_1b, startJob1b, cb);
+	//await startJob('1b', SCHEDULE_1b, function(){ console.log("hello")}, cb);  
+ } catch(e) {
       cb(e, null);
     }
   },
@@ -172,6 +188,7 @@ module.exports.startJob2c((err, resp) => {
   err ? console.error(err) : console.log(resp);
 });
 module.exports.startJob1b((err, resp) => {
+console.log(Date.now())
   err ? console.error(err) : console.log(resp);
 });
 module.exports.startJob1c((err, resp) => {

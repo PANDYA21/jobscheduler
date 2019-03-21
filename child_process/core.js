@@ -1,7 +1,7 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const { writeStatus, updateStatus, getStatus, getActiveJobs, getAllJobs, getLastJobOfSubject } = require('./../job_logger');
-const SPARK_HOME = process.env.SPARK_HOME || 'C:/Apache/spark-2.2.0-k8s-0.5.0-bin-2.7.3/';
+const SPARK_HOME = process.env.SPARK_HOME || '/home/lucas/Documents/jobscheduler/spark-2.2.0-k8s-0.5.0-bin-2.7.3/';
 
 console.log({ 'SPARK_HOME': SPARK_HOME });
 
@@ -43,7 +43,7 @@ if (!process.env.NODE_ENV) {
 if (process.env.NODE_ENV.indexOf('prod') === -1) {
   process.env.KUBECONFIG = '/home/bhaumik/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
 } else { 
-  process.env.KUBECONFIG = '/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
+//  process.env.KUBECONFIG = '/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml';
 }
 
 console.log({ NODE_ENV: process.env.NODE_ENV });

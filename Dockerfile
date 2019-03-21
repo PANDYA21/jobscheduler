@@ -22,17 +22,17 @@ RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
   yarn \
   && rm -rf /var/lib/apt/lists/*
 # install imcloud cli
-RUN curl -fsSL https://clis.ng.bluemix.net/install/linux | sh
+# RUN curl -fsSL https://clis.ng.bluemix.net/install/linux | sh
 # login to ibmcloud
-RUN ibmcloud login -a api.eu-de.bluemix.net -u $IBM_USER -p $IBM_PWD -c 54fc328c810341d7890b50a2e9e54b2f
+# RUN ibmcloud login -a api.eu-de.bluemix.net -u $IBM_USER -p $IBM_PWD -c 54fc328c810341d7890b50a2e9e54b2f
 # setup ibmcloud container-service
-RUN ibmcloud plugin install container-service
-RUN ibmcloud cs cluster-config mitegro-qa01
-ENV KUBECONFIG=/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml
+# RUN ibmcloud plugin install container-service
+# RUN ibmcloud cs cluster-config mitegro-qa01
+# ENV KUBECONFIG=/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/kube-config-fra02-mitegro-qa01.yml
 # install kubectl cli
 ADD https://storage.googleapis.com/kubernetes-release/release/v1.11.7/bin/linux/amd64/kubectl .
 RUN chmod +x ./kubectl&&mv ./kubectl /usr/local/bin/kubectl
-RUN kubectl get nodes
+# RUN kubectl get nodes
 # test pyspark-submit run
 # RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit /child_process/test_1b.py
 # # install nodejs dependencies (requires git cli)

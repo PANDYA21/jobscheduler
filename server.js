@@ -110,7 +110,7 @@ app.get('/trigger/1c/status', (req, res, next) => {
 
 
 // start server
-app.listen(8080, () => {
+app.listen(8081, () => {
   console.info('Server starting at 8080');
 });
 
