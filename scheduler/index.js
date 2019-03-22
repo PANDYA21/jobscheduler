@@ -36,11 +36,11 @@ var rule2c= new schedule.RecurrenceRule();
 rule2c.minute = 30;
 rule2c.hour = 6;
 var rule1b= new schedule.RecurrenceRule();
-rule1b.minute = 4;
-//rule1b.hour = 6;
+rule1b.minute = 45;
+rule1b.hour = 6;
 var rule1c= new schedule.RecurrenceRule();
-rule1c.minute = 48;
-// rule1c.hour = ;
+rule1c.minute = 0;
+ rule1c.hour = 7;
 
 const SCHEDULE_2a = rule2a;
 const SCHEDULE_2b = rule2b;
@@ -151,8 +151,7 @@ function endJob2c(cb) {
 module.exports = {
   startJob1b: async function(cb) {
     try {    
-  await startJob('1b', SCHEDULE_1b, startJob1b, cb);
-	//await startJob('1b', SCHEDULE_1b, function(){ console.log("hello")}, cb);  
+  await startJob('1b', SCHEDULE_1b, startJob1b, cb); 
  } catch(e) {
       cb(e, null);
     }
@@ -188,7 +187,6 @@ module.exports.startJob2c((err, resp) => {
   err ? console.error(err) : console.log(resp);
 });
 module.exports.startJob1b((err, resp) => {
-console.log(Date.now())
   err ? console.error(err) : console.log(resp);
 });
 module.exports.startJob1c((err, resp) => {

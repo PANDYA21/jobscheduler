@@ -32,11 +32,11 @@ ENV KUBECONFIG=/root/.bluemix/plugins/container-service/clusters/mitegro-qa01/ku
 # install kubectl cli
 ADD https://storage.googleapis.com/kubernetes-release/release/v1.11.7/bin/linux/amd64/kubectl .
 RUN chmod +x ./kubectl&&mv ./kubectl /usr/local/bin/kubectl
-RUN kubectl get nodes
+# RUN kubectl get nodes
 # test pyspark-submit run
 # RUN ./spark-2.2.0-k8s-0.5.0-bin-2.7.3/bin/spark-submit /child_process/test_1b.py
 # # install nodejs dependencies (requires git cli)
 # RUN npm install --no-cache git
 # RUN npm install
 # start nodejs app
-CMD npm start 
+CMD npm start
